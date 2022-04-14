@@ -1,0 +1,12 @@
+{
+  "name": "pitang_desafio_backend",
+  "version": "1.0.0",
+  "description": "Desafio Pitang Trainee 2022, backend",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EduardoMelloSampaio/pitang_desafio_backend.git"
+  },
+  "author": "Eduardo Mello Sampaio Bernardino",
+  "license": "ISC"
+}
