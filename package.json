@@ -8,5 +8,8 @@
     "url": "git+https://github.com/EduardoMelloSampaio/pitang_desafio_backend.git"
   },
   "author": "Eduardo Mello Sampaio Bernardino",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "yarn": "^1.22.18"
+  }
 }
