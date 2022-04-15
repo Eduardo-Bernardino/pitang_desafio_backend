@@ -1,4 +1,11 @@
 import prisma from '../prismaClient.js'
+import Joi from 'joi'
+
+const schema = Joi.object({
+  name: Joi.string().required().min(3).max(50),
+  birthDate: Joi.date(),
+  appointmentday: Joi.date(),
+});
 class Controller {
     async index(request, response) {
       const schedule = await prisma.schedule.findMany()
@@ -6,16 +13,62 @@ class Controller {
      response.json({schedule})
     }
 
-    store(request, response) {
-      response.json({ message: "store" })
+    async store(request, response) {
+      const { body } = request;
+
+      if (schema) {
+        const validation = schema.validate(body, { abortEarly: false });
+
+        if (validation.error) {
+          return response.status(400).json(validation.error.details);
+        }
+      }
+
+      try {
+        const registry = await prisma.schedule.create({
+          data: body,
+        })
+
+        response.json(registry)
+      } catch (error) {
+        console.error(error)
+
+        response.status(400).send({ message: "Insertion Failed" })
+      }
     }
   
-    update(request, response) {
-      response.json({ message: "update" })
+    async update(request, response) {
+      const { id } = request.params;
+      const { body } = request;
+  
+      if (schema) {
+        const validation = schema.validate(body, { abortEarly: false });
+  
+        if (validation.error) {
+          return response.status(400).json(validation.error.details);
+        }
+      }
+  
+      try {
+        const registry = await prisma.schedule.update({
+          where: { id },
+          data: body,
+        });
+  
+        response.json(registry);
+      } catch (error) {
+        console.error(error);
+  
+        response.status(400).send({ message: "Update Failed" });
+      }
     }
   
-    remove(request, response) {
-      response.json({ message: "remove" })
+    async remove(request, response) {
+      const { id } = request.params;
+  
+      await prisma.schedule.delete({ where: { id } });
+  
+      response.json({ message: "Deleted" });
     }
   
     async getOne(request, response) {
