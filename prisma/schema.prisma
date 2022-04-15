@@ -9,3 +9,10 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model schedule {
+  id             String   @id @default(uuid())
+  name           String
+  birthDate      DateTime
+  appointmentday DateTime
+}
