@@ -1,10 +1,13 @@
+import prisma from '../prismaClient.js'
 class Controller {
+    async index(request, response) {
+      const schedule = await prisma.schedule.findMany()
+
+     response.json({schedule})
+    }
+
     store(request, response) {
       response.json({ message: "store" })
-    }
-  
-    index(request, response) {
-      response.json({ message: "index" })
     }
   
     update(request, response) {
@@ -15,8 +18,13 @@ class Controller {
       response.json({ message: "remove" })
     }
   
-    getOne(request, response) {
-      response.json({ message: "getOne" })
+    async getOne(request, response) {
+      const { id } = request.params;
+      const schedule = await prisma.schedule.findUnique({ where: {id} })
+      if(!schedule){
+        return response.status(404).json({message: "Not found!"})
+      }
+      response.json(schedule)
     }
   }
   
