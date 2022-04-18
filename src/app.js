@@ -10,9 +10,9 @@ const PORT = process.env.PORT || 3033
 
 const app = express()
 app.use(express.json())
-app.use(morgan("dev"))
+app.use(morgan('dev'))
 app.use(cors())
-app.use("/api", router)
+app.use('/api', router)
 
 app.get('/', (request, response) => {
   response.send('Hello World!')
