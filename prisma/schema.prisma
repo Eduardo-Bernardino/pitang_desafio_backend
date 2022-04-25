@@ -15,4 +15,5 @@ model schedule {
   name           String
   birthDate      DateTime
   appointmentday DateTime
+  situation      Boolean  @default(false)
 }

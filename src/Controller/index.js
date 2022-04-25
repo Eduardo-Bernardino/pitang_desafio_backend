@@ -4,13 +4,14 @@ import Joi from 'joi'
 const schema = Joi.object({
   name: Joi.string().required().min(3).max(50),
   birthDate: Joi.date(),
-  appointmentday: Joi.date()
+  appointmentday: Joi.date(),
+  situation: Joi.boolean()
 })
 class Controller {
   async index (request, response) {
-    const schedule = await prisma.schedule.findMany()
+    const registrys = await prisma.schedule.findMany({})
 
-    response.json({ schedule })
+    response.json(registrys)
   }
 
   async store (request, response) {
